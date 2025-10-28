@@ -36,38 +36,16 @@ jobs:
     - name: 🏗️ Build Release
       run: dotnet build --no-restore --configuration Release
 
-    - name: 📦 Publish Windows x64 (Self-Contained)
-      run: |
-        dotnet publish `
-          --configuration Release `
-          --runtime win-x64 `
-          --self-contained true `
-          --output ./publish/win-x64 `
-          /p:PublishSingleFile=true `
-          /p:IncludeNativeLibrariesForSelfExtract=true `
-          /p:EnableCompressionInSingleFile=true
+    - name: � Publish Windows x64 (Self-Contained)
+      run: dotnet publish --configuration Release --runtime win-x64 --self-contained true --output ./publish/win-x64 /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:EnableCompressionInSingleFile=true
 
     - name: 📦 Publish Windows x64 (Framework-Dependent)
-      run: |
-        dotnet publish `
-          --configuration Release `
-          --runtime win-x64 `
-          --self-contained false `
-          --output ./publish/win-x64-fx-dependent `
-          /p:PublishSingleFile=true
+      run: dotnet publish --configuration Release --runtime win-x64 --self-contained false --output ./publish/win-x64-fx-dependent /p:PublishSingleFile=true
 
     - name: 📦 Publish Windows ARM64 (Self-Contained)
-      run: |
-        dotnet publish `
-          --configuration Release `
-          --runtime win-arm64 `
-          --self-contained true `
-          --output ./publish/win-arm64 `
-          /p:PublishSingleFile=true `
-          /p:IncludeNativeLibrariesForSelfExtract=true `
-          /p:EnableCompressionInSingleFile=true
+      run: dotnet publish --configuration Release --runtime win-arm64 --self-contained true --output ./publish/win-arm64 /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:EnableCompressionInSingleFile=true
 
-    - name: 🗂️ Prepare release files
+    - name: �️ Prepare release files
       run: |
         # Create release directory structure
         New-Item -ItemType Directory -Force -Path "./release"
