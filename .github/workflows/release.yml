@@ -45,21 +45,7 @@ jobs:
     - name: 📦 Publish Windows ARM64 (Self-Contained)
       run: dotnet publish --configuration Release --runtime win-arm64 --self-contained true --output ./publish/win-arm64 /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:EnableCompressionInSingleFile=true
 
-    - name: 🔍 Debug - Check publish directories
-      run: |
-        Write-Host "=== Debug: Checking publish directories ==="
-        if (Test-Path "./publish") {
-          Write-Host "Publish directory exists. Contents:"
-          Get-ChildItem "./publish" -Recurse | Format-Table Name, FullName, Length
-        } else {
-          Write-Host "ERROR: Publish directory does not exist!"
-          exit 1
-        }
-        
-        Write-Host "=== Looking for executables ==="
-        Get-ChildItem . -Filter "*.exe" -Recurse | Format-Table Name, FullName, Length
-
-    - name: 🗂️ Prepare release files
+    - name: ️ Prepare release files
       run: |
         # Create release directory structure
         New-Item -ItemType Directory -Force -Path "./release"
@@ -172,7 +158,7 @@ jobs:
         body: ${{ steps.changelog.outputs.CHANGELOG }}
         draft: false
         prerelease: ${{ contains(github.ref_name, 'beta') || contains(github.ref_name, 'alpha') || contains(github.ref_name, 'rc') }}
-        files: |
+        artifacts: |
           ./release/${{ env.PROJECT_NAME }}-win-x64-standalone.exe
           ./release/${{ env.PROJECT_NAME }}-win-x64-requires-dotnet.exe
           ./release/${{ env.PROJECT_NAME }}-win-arm64-standalone.exe
