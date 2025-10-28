@@ -45,15 +45,44 @@ jobs:
     - name: 📦 Publish Windows ARM64 (Self-Contained)
       run: dotnet publish --configuration Release --runtime win-arm64 --self-contained true --output ./publish/win-arm64 /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /p:EnableCompressionInSingleFile=true
 
-    - name: �️ Prepare release files
+    - name: 🔍 Debug - Check publish directories
+      run: |
+        Write-Host "=== Debug: Checking publish directories ==="
+        if (Test-Path "./publish") {
+          Write-Host "Publish directory exists. Contents:"
+          Get-ChildItem "./publish" -Recurse | Format-Table Name, FullName, Length
+        } else {
+          Write-Host "ERROR: Publish directory does not exist!"
+          exit 1
+        }
+        
+        Write-Host "=== Looking for executables ==="
+        Get-ChildItem . -Filter "*.exe" -Recurse | Format-Table Name, FullName, Length
+
+    - name: 🗂️ Prepare release files
       run: |
         # Create release directory structure
         New-Item -ItemType Directory -Force -Path "./release"
         
-        # Copy executables and rename them appropriately
-        Copy-Item "./publish/win-x64/${{ env.PROJECT_NAME }}.exe" "./release/${{ env.PROJECT_NAME }}-win-x64-standalone.exe"
-        Copy-Item "./publish/win-x64-fx-dependent/${{ env.PROJECT_NAME }}.exe" "./release/${{ env.PROJECT_NAME }}-win-x64-requires-dotnet.exe"
-        Copy-Item "./publish/win-arm64/${{ env.PROJECT_NAME }}.exe" "./release/${{ env.PROJECT_NAME }}-win-arm64-standalone.exe"
+        # Check if executables exist before copying
+        $exes = @(
+          @{Source = "./publish/win-x64/${{ env.PROJECT_NAME }}.exe"; Target = "./release/${{ env.PROJECT_NAME }}-win-x64-standalone.exe"}
+          @{Source = "./publish/win-x64-fx-dependent/${{ env.PROJECT_NAME }}.exe"; Target = "./release/${{ env.PROJECT_NAME }}-win-x64-requires-dotnet.exe"}
+          @{Source = "./publish/win-arm64/${{ env.PROJECT_NAME }}.exe"; Target = "./release/${{ env.PROJECT_NAME }}-win-arm64-standalone.exe"}
+        )
+        
+        foreach ($exe in $exes) {
+          if (Test-Path $exe.Source) {
+            Copy-Item $exe.Source $exe.Target
+            Write-Host "✅ Copied: $($exe.Source) -> $($exe.Target)"
+          } else {
+            Write-Host "❌ ERROR: Source file not found: $($exe.Source)"
+          }
+        }
+        
+        # Verify files were copied
+        Write-Host "=== Release directory contents ==="
+        Get-ChildItem "./release" | Format-Table Name, Length
         
         # Create README for release
         @"
