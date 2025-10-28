@@ -1,0 +1,180 @@
+name: 🚀 Release & Publish
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g., v1.0.0)'
+        required: true
+        default: 'v1.0.0'
+
+env:
+  DOTNET_VERSION: '9.0.x'
+  PROJECT_NAME: 'myOwnPasswordManager'
+
+jobs:
+  release:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    
+    steps:
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v4
+
+    - name: 🔧 Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: 📦 Restore dependencies
+      run: dotnet restore
+
+    - name: 🏗️ Build Release
+      run: dotnet build --no-restore --configuration Release
+
+    - name: 📦 Publish Windows x64 (Self-Contained)
+      run: |
+        dotnet publish `
+          --configuration Release `
+          --runtime win-x64 `
+          --self-contained true `
+          --output ./publish/win-x64 `
+          /p:PublishSingleFile=true `
+          /p:IncludeNativeLibrariesForSelfExtract=true `
+          /p:EnableCompressionInSingleFile=true
+
+    - name: 📦 Publish Windows x64 (Framework-Dependent)
+      run: |
+        dotnet publish `
+          --configuration Release `
+          --runtime win-x64 `
+          --self-contained false `
+          --output ./publish/win-x64-fx-dependent `
+          /p:PublishSingleFile=true
+
+    - name: 📦 Publish Windows ARM64 (Self-Contained)
+      run: |
+        dotnet publish `
+          --configuration Release `
+          --runtime win-arm64 `
+          --self-contained true `
+          --output ./publish/win-arm64 `
+          /p:PublishSingleFile=true `
+          /p:IncludeNativeLibrariesForSelfExtract=true `
+          /p:EnableCompressionInSingleFile=true
+
+    - name: 🗂️ Prepare release files
+      run: |
+        # Create release directory structure
+        New-Item -ItemType Directory -Force -Path "./release"
+        
+        # Copy executables and rename them appropriately
+        Copy-Item "./publish/win-x64/${{ env.PROJECT_NAME }}.exe" "./release/${{ env.PROJECT_NAME }}-win-x64-standalone.exe"
+        Copy-Item "./publish/win-x64-fx-dependent/${{ env.PROJECT_NAME }}.exe" "./release/${{ env.PROJECT_NAME }}-win-x64-requires-dotnet.exe"
+        Copy-Item "./publish/win-arm64/${{ env.PROJECT_NAME }}.exe" "./release/${{ env.PROJECT_NAME }}-win-arm64-standalone.exe"
+        
+        # Create README for release
+        @"
+        # 🔐 Pedro's Password Manager - Release Files
+        
+        ## 📦 Available Downloads
+        
+        ### Windows x64 (Recommended for most users)
+        - **${{ env.PROJECT_NAME }}-win-x64-standalone.exe** (~80MB)
+          - ✅ No .NET installation required
+          - ✅ Works on any Windows 10/11 x64 machine
+          - ✅ Single executable file
+        
+        - **${{ env.PROJECT_NAME }}-win-x64-requires-dotnet.exe** (~200KB)
+          - ⚠️ Requires .NET 9.0 Runtime to be installed
+          - ✅ Much smaller download
+          - 🔗 Download .NET: https://dotnet.microsoft.com/download/dotnet/9.0
+        
+        ### Windows ARM64 (For ARM-based Windows devices)
+        - **${{ env.PROJECT_NAME }}-win-arm64-standalone.exe** (~80MB)
+          - ✅ For Windows on ARM devices (Surface Pro X, etc.)
+          - ✅ No .NET installation required
+        
+        ## 🚀 Quick Start
+        1. Download the appropriate executable for your system
+        2. Run the .exe file directly
+        3. Create your master password on first run
+        4. Start managing your passwords securely!
+        
+        ## 🔒 Security Notes
+        - All passwords are encrypted with AES-256
+        - Master password cannot be recovered if lost
+        - Data stored locally only (no cloud sync)
+        
+        ---
+        **Version**: ${{ github.ref_name }}
+        **Build Date**: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss UTC')
+        **Framework**: .NET 9.0
+        "@ | Out-File -FilePath "./release/README.txt" -Encoding UTF8
+
+    - name: 📝 Generate changelog
+      id: changelog
+      run: |
+        $changelog = @"
+        ## What's New in ${{ github.ref_name }}
+        
+        ### 🔐 Features
+        - Secure password management with AES-256 encryption
+        - Master password protection
+        - Built-in password generator
+        - Quick copy to clipboard
+        - Simple and intuitive Windows Forms interface
+        
+        ### 📦 Download Options
+        - **Standalone**: No .NET installation required (~80MB)
+        - **Framework-dependent**: Requires .NET 9.0 Runtime (~200KB)
+        - **ARM64 Support**: For Windows on ARM devices
+        
+        ### 🔧 Technical Details
+        - Built with .NET 9.0
+        - Windows Forms UI
+        - Self-contained executable options
+        - Local JSON storage with encryption
+        
+        ### 🚀 Installation
+        1. Download the appropriate .exe file below
+        2. Run directly - no installation needed!
+        3. Create your master password on first run
+        
+        ### ⚠️ Important Notes
+        - **Backup your data**: Keep a copy of credentials.json safe
+        - **Master password**: Cannot be recovered if forgotten
+        - **Local only**: No cloud sync - your data stays on your machine
+        "@
+        
+        # Save changelog to file and environment
+        $changelog | Out-File -FilePath "./CHANGELOG.md" -Encoding UTF8
+        "CHANGELOG<<EOF" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding UTF8
+        $changelog | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding UTF8
+        "EOF" | Out-File -FilePath $env:GITHUB_OUTPUT -Append -Encoding UTF8
+
+    - name: 🏷️ Create GitHub Release
+      uses: ncipollo/release-action@v1
+      with:
+        tag: ${{ github.ref_name || github.event.inputs.version }}
+        name: 🔐 Password Manager ${{ github.ref_name || github.event.inputs.version }}
+        body: ${{ steps.changelog.outputs.CHANGELOG }}
+        draft: false
+        prerelease: ${{ contains(github.ref_name, 'beta') || contains(github.ref_name, 'alpha') || contains(github.ref_name, 'rc') }}
+        files: |
+          ./release/${{ env.PROJECT_NAME }}-win-x64-standalone.exe
+          ./release/${{ env.PROJECT_NAME }}-win-x64-requires-dotnet.exe
+          ./release/${{ env.PROJECT_NAME }}-win-arm64-standalone.exe
+          ./release/README.txt
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: 📊 Upload build artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: release-binaries-${{ github.ref_name || github.event.inputs.version }}
+        path: ./release/
+        retention-days: 90

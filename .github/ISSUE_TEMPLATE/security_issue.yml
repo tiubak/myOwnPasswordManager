@@ -1,0 +1,108 @@
+name: 🔒 Security Issue
+description: Report a security vulnerability (private disclosure)
+title: "[SECURITY] "
+labels: ["security", "priority-high"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ⚠️ Security Vulnerability Report
+        
+        **IMPORTANT**: If this is a critical security vulnerability, please consider reporting it privately first:
+        - Email the repository owner directly
+        - Use GitHub's private vulnerability reporting feature
+        
+        This form is for security issues that are not immediately exploitable or for general security improvements.
+
+  - type: checkboxes
+    id: urgency
+    attributes:
+      label: Severity Assessment
+      description: Please check all that apply
+      options:
+        - label: This could lead to immediate password disclosure
+        - label: This could lead to master password bypass
+        - label: This could corrupt encrypted data
+        - label: This is a potential vulnerability but not immediately exploitable
+        - label: This is a security improvement suggestion
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Security Category
+      description: What type of security issue is this?
+      options:
+        - Encryption/Cryptography
+        - Authentication
+        - Data Storage
+        - Input Validation
+        - Memory Management
+        - File System Security
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: vulnerability
+    attributes:
+      label: Vulnerability Description
+      description: Describe the security issue in detail
+      placeholder: |
+        Please provide:
+        1. What is the vulnerability?
+        2. How could it be exploited?
+        3. What is the potential impact?
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: How can this vulnerability be reproduced?
+      placeholder: |
+        1. Step one...
+        2. Step two...
+        3. Observe security issue...
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact Assessment
+      description: What could happen if this vulnerability is exploited?
+      placeholder: Describe the potential impact on users' data and security...
+    validations:
+      required: true
+
+  - type: textarea
+    id: mitigation
+    attributes:
+      label: Suggested Mitigation
+      description: Do you have suggestions for fixing this issue?
+      placeholder: How could this vulnerability be addressed?
+
+  - type: input
+    id: version
+    attributes:
+      label: Affected Version(s)
+      description: Which versions are affected by this issue?
+      placeholder: e.g., v1.0.0, all versions, etc.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: responsible-disclosure
+    attributes:
+      label: Responsible Disclosure
+      description: Please acknowledge responsible disclosure practices
+      options:
+        - label: I will not publicly disclose details until a fix is available
+          required: true
+        - label: I have not shared this vulnerability information with others
+          required: true
+        - label: I understand this is a personal project and response time may vary
+          required: true

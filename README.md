@@ -1,5 +1,13 @@
 # 🔐 Pedro's Password Manager
 
+[![Build Status](https://github.com/tiubak/myOwnPasswordManager/actions/workflows/ci.yml/badge.svg)](https://github.com/tiubak/myOwnPasswordManager/actions/workflows/ci.yml)
+[![Release](https://github.com/tiubak/myOwnPasswordManager/actions/workflows/release.yml/badge.svg)](https://github.com/tiubak/myOwnPasswordManager/actions/workflows/release.yml)
+[![Latest Release](https://img.shields.io/github/v/release/tiubak/myOwnPasswordManager)](https://github.com/tiubak/myOwnPasswordManager/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/tiubak/myOwnPasswordManager/total)](https://github.com/tiubak/myOwnPasswordManager/releases)
+[![License](https://img.shields.io/badge/license-Personal%20Project-blue)](LICENSE)
+[![.NET](https://img.shields.io/badge/.NET-9.0-blue)](https://dotnet.microsoft.com/download/dotnet/9.0)
+[![Platform](https://img.shields.io/badge/platform-Windows-blue)](https://www.microsoft.com/windows)
+
 A simple, secure Windows Forms application for managing database and server passwords with AES-256 encryption.
 
 ## ✨ Features
@@ -12,11 +20,21 @@ A simple, secure Windows Forms application for managing database and server pass
 - **📋 Quick Copy**: Copy passwords to clipboard with one click
 - **✏️ Edit Support**: Double-click rows to edit credentials
 
-## 🚀 Getting Started
+## � Download & Installation
+
+### Quick Start
+1. **[Download the latest release](https://github.com/tiubak/myOwnPasswordManager/releases/latest)**
+2. **Choose your version:**
+   - `win-x64-standalone.exe` - No .NET required (~80MB) ⭐ **Recommended**
+   - `win-x64-requires-dotnet.exe` - Needs .NET 9.0 (~200KB)
+   - `win-arm64-standalone.exe` - For ARM devices (~80MB)
+3. **Run the .exe** - No installation needed!
+
+## �🚀 Getting Started
 
 ### First Run
 
-1. **Launch the application** - `PedroPasswordManager.exe`
+1. **Launch the application** - Double-click the downloaded `.exe` file
 2. **Create master password** - You'll be prompted to create a master password on first run
 3. **Remember it!** - This password cannot be recovered if lost
 

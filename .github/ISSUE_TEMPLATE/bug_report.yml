@@ -1,0 +1,113 @@
+name: 🐛 Bug Report
+description: Report a bug or issue with the password manager
+title: "[BUG] "
+labels: ["bug", "triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report! 🔐
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Pre-flight Check
+      description: Please verify these items before submitting
+      options:
+        - label: I have searched existing issues to ensure this is not a duplicate
+          required: true
+        - label: I am using the latest version available
+          required: true
+        - label: I have read the README.md file
+          required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: What version of the password manager are you using?
+      placeholder: e.g., v1.0.0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: windows-version
+    attributes:
+      label: Windows Version
+      description: What version of Windows are you using?
+      options:
+        - Windows 11
+        - Windows 10
+        - Windows Server 2022
+        - Windows Server 2019
+        - Other (please specify in description)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: build-type
+    attributes:
+      label: Build Type
+      description: Which version of the executable are you using?
+      options:
+        - Standalone (no .NET required)
+        - Framework-dependent (requires .NET)
+        - Built from source
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the bug in detail
+      placeholder: Tell us what you see!
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What did you expect to happen?
+      placeholder: What should have happened instead?
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this issue?
+      placeholder: |
+        1. Go to...
+        2. Click on...
+        3. See error...
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error Messages / Logs
+      description: If applicable, provide any error messages or logs
+      render: text
+      placeholder: Paste any error messages here
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Add any other context about the problem here
+      placeholder: Screenshots, additional details, etc.
+
+  - type: checkboxes
+    id: data-loss
+    attributes:
+      label: Data Safety
+      description: Important information about your data
+      options:
+        - label: This issue does NOT involve potential data loss or security concerns
+        - label: I have backed up my credentials.json file before reporting this issue

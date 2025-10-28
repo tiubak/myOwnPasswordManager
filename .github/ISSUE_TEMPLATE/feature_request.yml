@@ -1,0 +1,92 @@
+name: ✨ Feature Request
+description: Suggest a new feature for the password manager
+title: "[FEATURE] "
+labels: ["enhancement", "triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a new feature! 🚀
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Pre-flight Check
+      description: Please verify these items before submitting
+      options:
+        - label: I have searched existing issues to ensure this is not a duplicate
+          required: true
+        - label: This feature aligns with the project's goals (simple, secure, local password management)
+          required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Description
+      description: What problem would this feature solve?
+      placeholder: Is your feature request related to a problem? Please describe...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the solution you'd like to see
+      placeholder: A clear and concise description of what you want to happen...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority Level
+      description: How important is this feature to you?
+      options:
+        - Low - Nice to have
+        - Medium - Would improve my workflow
+        - High - Critical for my use case
+    validations:
+      required: true
+
+  - type: dropdown
+    id: category
+    attributes:
+      label: Feature Category
+      description: What type of feature is this?
+      options:
+        - User Interface
+        - Security
+        - Import/Export
+        - Password Generation
+        - Data Management
+        - Performance
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternative Solutions
+      description: Have you considered alternative solutions or workarounds?
+      placeholder: Describe alternatives you've considered...
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Add any other context, screenshots, or examples about the feature request
+      placeholder: Mockups, examples from other tools, etc.
+
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: Design Constraints
+      description: Please acknowledge these project constraints
+      options:
+        - label: I understand this is a LOCAL-only password manager (no cloud features)
+        - label: I understand this focuses on simplicity over advanced features
+        - label: This feature would not compromise the security of stored passwords
