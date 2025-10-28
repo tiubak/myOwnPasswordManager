@@ -1,4 +1,4 @@
-# Contributing to Pedro's Password Manager 🔐
+# Contributing to My Own Password Manager 🔐
 
 Thank you for your interest in contributing to this password manager project! This guide will help you get started.
 
@@ -241,4 +241,4 @@ By contributing, you agree that your contributions will be licensed under the sa
 
 ---
 
-Thank you for contributing to Pedro's Password Manager! 🔐✨
+Thank you for contributing to My Own Password Manager! 🔐✨

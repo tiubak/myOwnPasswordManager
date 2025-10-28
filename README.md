@@ -1,4 +1,4 @@
-# 🔐 Pedro's Password Manager
+# 🔐 My Own Password Manager
 
 [![Build Status](https://github.com/tiubak/myOwnPasswordManager/actions/workflows/ci.yml/badge.svg)](https://github.com/tiubak/myOwnPasswordManager/actions/workflows/ci.yml)
 [![Release](https://github.com/tiubak/myOwnPasswordManager/actions/workflows/release.yml/badge.svg)](https://github.com/tiubak/myOwnPasswordManager/actions/workflows/release.yml)
@@ -78,12 +78,12 @@ dotnet run
 dotnet publish -c Release -r win-x64 --self-contained true /p:PublishSingleFile=true
 ```
 
-**Output location**: `bin\Release\net9.0-windows\win-x64\publish\PedroPasswordManager.exe`
+**Output location**: `bin\Release\net9.0-windows\win-x64\publish\myOwnPasswordManager.exe`
 
 ## 📁 File Structure
 
 ```
-PedroPasswordManager/
+myOwnPasswordManager/
 ├── PasswordEntry.cs           # Data models (PasswordEntry, AppData)
 ├── EncryptionHelper.cs        # AES-256 encryption/decryption
 ├── PasswordStore.cs           # JSON file operations
@@ -92,7 +92,7 @@ PedroPasswordManager/
 ├── Form1.cs                   # Main form logic
 ├── Form1.Designer.cs          # Main form UI design
 ├── Program.cs                 # Application entry point
-└── PedroPasswordManager.csproj # Project configuration
+└── myOwnPasswordManager.csproj # Project configuration
 ```
 
 ## 🔒 Security Features
@@ -194,7 +194,7 @@ This is a personal project. Feel free to use and modify as needed.
 
 ## 👤 Author
 
-Built for Pedro to solve database password management challenges.
+A personal project to solve database password management challenges securely and locally.
 
 ---
 

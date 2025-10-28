@@ -79,7 +79,7 @@ jobs:
         
         # Create README for release
         @"
-        # 🔐 Pedro's Password Manager - Release Files
+        # 🔐 My Own Password Manager - Release Files
         
         ## 📦 Available Downloads
         
@@ -161,7 +161,7 @@ jobs:
       uses: ncipollo/release-action@v1
       with:
         tag: ${{ github.ref_name || github.event.inputs.version }}
-        name: 🔐 Password Manager ${{ github.ref_name || github.event.inputs.version }}
+        name: 🔐 My Own Password Manager ${{ github.ref_name || github.event.inputs.version }}
         body: ${{ steps.changelog.outputs.CHANGELOG }}
         draft: false
         prerelease: ${{ contains(github.ref_name, 'beta') || contains(github.ref_name, 'alpha') || contains(github.ref_name, 'rc') }}

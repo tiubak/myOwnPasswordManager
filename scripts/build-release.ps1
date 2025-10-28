@@ -1,7 +1,7 @@
 #!/usr/bin/env pwsh
 <#
 .SYNOPSIS
-    Build and package Pedro's Password Manager for release
+    Build and package My Own Password Manager for release
 .DESCRIPTION
     This script builds the password manager for multiple platforms and creates release packages
 .PARAMETER Version
@@ -50,7 +50,7 @@ if (-not ($Version -match '^\d+\.\d+\.\d+$')) {
     exit 1
 }
 
-Write-ColorOutput "🔐 Pedro's Password Manager - Release Builder" "Yellow"
+Write-ColorOutput "🔐 My Own Password Manager - Release Builder" "Yellow"
 Write-ColorOutput "Version: $Version" "White"
 Write-ColorOutput "Output: $OutputPath" "White"
 Write-ColorOutput "Configuration: $Configuration" "White"
@@ -143,7 +143,7 @@ foreach ($target in $targets) {
 Write-Step "Creating release documentation..."
 
 $releaseReadme = @"
-# 🔐 Pedro's Password Manager v$Version
+# 🔐 My Own Password Manager v$Version
 
 ## 📦 Release Files
 
@@ -236,7 +236,7 @@ The app automatically creates `.backup` files. Look for `credentials.json.backup
 ## 📄 License & Credits
 
 **License**: Personal use project  
-**Author**: Pedro (tiubak)  
+**Author**: tiubak  
 **Framework**: .NET 9.0  
 **UI**: Windows Forms  
 **Encryption**: AES-256-CBC  
@@ -247,7 +247,7 @@ The app automatically creates `.backup` files. Look for `credentials.json.backup
 **Build**: v$Version  
 **Checksum**: See release assets for SHA256 hashes
 
-Thank you for using Pedro's Password Manager! 🔐✨
+Thank you for using My Own Password Manager! 🔐✨
 "@
 
 $releaseReadme | Out-File -FilePath (Join-Path $OutputPath "README.txt") -Encoding UTF8

@@ -10,7 +10,7 @@ public class PasswordEntry
     public string Username { get; set; } = string.Empty;
     public string EncryptedPassword { get; set; } = string.Empty;
     public string Notes { get; set; } = string.Empty;
-    
+
     // Transient property for display purposes only (not serialized)
     [System.Text.Json.Serialization.JsonIgnore]
     public string DecryptedPassword { get; set; } = string.Empty;

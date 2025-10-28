@@ -11,14 +11,14 @@ static class Program
         // To customize application configuration such as set high DPI settings or default font,
         // see https://aka.ms/applicationconfiguration.
         ApplicationConfiguration.Initialize();
-        
+
         // Load or create app data
         var store = new PasswordStore();
         var appData = store.Load();
-        
+
         // Determine if this is first run
         bool isFirstRun = string.IsNullOrEmpty(appData.MasterPasswordHash);
-        
+
         // Show master password dialog
         using var passwordDialog = new MasterPasswordDialog(isFirstRun);
         if (passwordDialog.ShowDialog() != DialogResult.OK)
@@ -26,16 +26,16 @@ static class Program
             // User cancelled, exit application
             return;
         }
-        
+
         string masterPassword = passwordDialog.MasterPassword;
-        
+
         // Validate or set master password
         if (isFirstRun)
         {
             // First run - set the master password
             appData.MasterPasswordHash = EncryptionHelper.HashMasterPassword(masterPassword);
             store.Save(appData);
-            
+
             MessageBox.Show(
                 "Master password created successfully!\n\nRemember this password - it cannot be recovered if lost!",
                 "Setup Complete",
@@ -56,8 +56,8 @@ static class Program
                 return;
             }
         }
-        
+
         // Run main form with validated master password
         Application.Run(new Form1(masterPassword));
-    }    
+    }
 }

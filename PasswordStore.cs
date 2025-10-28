@@ -8,18 +8,18 @@ namespace myOwnPasswordManager;
 public class PasswordStore
 {
     private readonly string _filePath;
-    private static readonly JsonSerializerOptions _jsonOptions = new() 
-    { 
-        WriteIndented = true 
+    private static readonly JsonSerializerOptions _jsonOptions = new()
+    {
+        WriteIndented = true
     };
-    
+
     public PasswordStore()
     {
         // Store JSON file in the same directory as the executable
         var exeDirectory = AppContext.BaseDirectory;
         _filePath = Path.Combine(exeDirectory, "credentials.json");
     }
-    
+
     /// <summary>
     /// Loads application data from JSON file. Creates new file if not exists.
     /// </summary>
@@ -31,7 +31,7 @@ public class PasswordStore
             Save(newData);
             return newData;
         }
-        
+
         try
         {
             var json = File.ReadAllText(_filePath);
@@ -47,7 +47,7 @@ public class PasswordStore
             return new AppData();
         }
     }
-    
+
     /// <summary>
     /// Saves application data to JSON file
     /// </summary>
@@ -61,13 +61,13 @@ public class PasswordStore
         catch (Exception ex)
         {
             MessageBox.Show(
-                $"Error saving credentials: {ex.Message}", 
-                "Save Error", 
-                MessageBoxButtons.OK, 
+                $"Error saving credentials: {ex.Message}",
+                "Save Error",
+                MessageBoxButtons.OK,
                 MessageBoxIcon.Error);
         }
     }
-    
+
     /// <summary>
     /// Gets the full path to the credentials file
     /// </summary>

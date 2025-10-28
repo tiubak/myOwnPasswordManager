@@ -11,7 +11,7 @@ Security updates are provided for the following versions:
 
 ## Reporting a Vulnerability
 
-The security of Pedro's Password Manager is taken seriously. If you discover a security vulnerability, please follow these guidelines:
+The security of My Own Password Manager is taken seriously. If you discover a security vulnerability, please follow these guidelines:
 
 ### 🚨 Critical Vulnerabilities
 
@@ -153,4 +153,4 @@ Security updates will be:
 **Last Updated**: October 28, 2025  
 **Next Review**: January 2026
 
-Thank you for helping keep Pedro's Password Manager secure! 🛡️
+Thank you for helping keep My Own Password Manager secure! 🛡️

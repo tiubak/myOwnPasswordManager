@@ -7,7 +7,7 @@ This document outlines recommended settings for the myOwnPasswordManager GitHub 
 ### General Settings
 
 **Repository name:** `myOwnPasswordManager`
-**Description:** `🔐 Simple, secure Windows password manager with AES-256 encryption. Local storage, no cloud sync. Built with .NET 9.0 Windows Forms.`
+**Description:** `🔐 My Own Password Manager - Simple, secure Windows password manager with AES-256 encryption. Local storage, no cloud sync. Built with .NET 9.0 Windows Forms.`
 **Website:** `https://github.com/tiubak/myOwnPasswordManager`
 **Topics/Tags:** 
 ```
@@ -112,7 +112,7 @@ If you have GitHub Pro/Team/Enterprise, set up repository rules:
 ### 📱 Repository Social Preview
 
 Upload a social preview image (1280×640 px) showing:
-- 🔐 Password Manager logo/icon
+- 🔐 My Own Password Manager logo/icon
 - Project name
 - Key features (AES-256, Local, Secure)
 - Technology stack (.NET 9.0, Windows)
@@ -129,7 +129,7 @@ Create milestones for project planning:
 ### 📈 Projects (Optional)
 
 Create GitHub Projects for task management:
-- **Project name:** "Password Manager Development"
+- **Project name:** "My Own Password Manager Development"
 - **Views:** 
   - Backlog (all open issues)
   - In Progress (assigned issues)
